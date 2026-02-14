@@ -1,12 +1,13 @@
 import { useState } from 'react'
-import FormVagas from '../../components/FormVagas'
+import styled from 'styled-components'
 
+import FormVagas from '../../components/FormVagas'
 import Vaga from '../../components/Vaga'
 
-import styles from './ListaVagas.module.css'
+// import styles from './ListaVagas.module.css'
 
-type Vaga = {
-  id: string
+type VagaType = {
+  id: number
   titulo: string
   localizacao: string
   nivel: string
@@ -16,7 +17,7 @@ type Vaga = {
   requisitos: string[]
 }
 
-const vagas = [
+const vagas: VagaType[] = [
   {
     id: 1,
     titulo: 'Desenvolvedor front-end',
@@ -89,17 +90,31 @@ const vagas = [
   }
 ]
 
+const Lista = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 16px;
+  row-gap: 16px;
+  margin-top: 32px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`
+
 const ListaVagas = () => {
   const [filtro, setFiltro] = useState<string>('')
 
   const vagasFiltradas = vagas.filter(
-    (x) => x.titulo.toLocaleLowerCase().search(filtro) >= 0
+    (x)=>x.titulo.toLowerCase().includes(filtro)
   )
 
   return (
     <div>
       <FormVagas aoPesquisar={(termo: string) => setFiltro(termo)} />
-      <ul className={styles.vagas}>
+
+      {/* <ul className={styles.vagas}> */}
+      <Lista>
         {vagasFiltradas.map((vag) => (
           <Vaga
             key={vag.id}
@@ -112,7 +127,7 @@ const ListaVagas = () => {
             requisitos={vag.requisitos}
           />
         ))}
-      </ul>
+      </Lista>
     </div>
   )
 }

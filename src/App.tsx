@@ -5,8 +5,8 @@ import styled, { createGlobalStyle } from 'styled-components'
 //import './global.css'
 const GlobalStyle = createGlobalStyle`
   :root {
-    --cor-principal: #4b4345;
-    --cor-secundaria: #080808;
+    --cor-principal: #a7727d;
+    --cor-secundaria: #f9f5e7;
   }
 
   * {
